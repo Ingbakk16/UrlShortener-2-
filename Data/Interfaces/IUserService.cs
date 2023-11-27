@@ -9,7 +9,7 @@ namespace UrlShortener_2_.Data.Interfaces
         Task<bool> IsUsernameTaken(string username);
         Task<bool> IsEmailTaken(string email);
         Task CreateUser(User user);
-        Task<string> HashPassword(string password); // Add this method
-        User? ValidateUser(AuthenticationRequestDto authRequestBody);
+       
+         User? ValidateUser(AuthenticationRequestDto authRequestBody);
     }
 }

@@ -3,5 +3,7 @@
     public class NewUrlForCreationDto
     {
         public string OriginalUrl { get; set; }
+
+        
     }
 }

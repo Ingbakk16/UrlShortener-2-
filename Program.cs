@@ -12,17 +12,12 @@ using UrlShortener_2_.Servicies;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<ShortenerDbContext>(options =>
-{
-    options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection"));
-});
-
-
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.JsonSerializerOptions.WriteIndented = true;
 });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setupAction =>
@@ -46,6 +41,15 @@ builder.Services.AddSwaggerGen(setupAction =>
                 }, new List<string>() }
     });
 });
+
+
+
+
+builder.Services.AddDbContext<ShortenerDbContext>(options =>
+{
+    options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConnection"));
+});
+
 builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntenticaci�n que tenemos que elegir despu�s en PostMan para pasarle el token
     .AddJwtBearer(options => options.TokenValidationParameters = new()
     {
@@ -57,6 +61,18 @@ builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntentica
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
     }
     );
+
+
+
+
+
+
+
+
+
+
+
+
 
 #region dependencyInjections
 builder.Services.AddScoped<ShortenerService>();
@@ -72,13 +88,16 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "UrlShortener(2)");
-    });
+    app.UseSwaggerUI();
 }
 
+app.UseCors(
+  options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
+      );
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

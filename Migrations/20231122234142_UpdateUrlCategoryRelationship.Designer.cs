@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UrlShortener_2_.Data;
 
@@ -10,9 +11,11 @@ using UrlShortener_2_.Data;
 namespace UrlShortener_2_.Migrations
 {
     [DbContext(typeof(ShortenerDbContext))]
-    partial class ShortenerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231122234142_UpdateUrlCategoryRelationship")]
+    partial class UpdateUrlCategoryRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");

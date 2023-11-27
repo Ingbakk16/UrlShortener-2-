@@ -27,15 +27,16 @@ namespace UrlShortener_2_.Controllers
                 return BadRequest("Email is already taken.");
             }
 
-            // Hash and salt the password
-            string hashedPassword = await _userService.HashPassword(registrationDto.Password);
+            
+
 
             // Create a new user entity
             var newUser = new User
             {
                 UserName = registrationDto.Username,
                 Email = registrationDto.Email,
-                PasswordHash = hashedPassword
+                // Store the password as-is (not recommended for security reasons)
+                PasswordHash = registrationDto.Password
                 // You can add more user properties here
             };
 

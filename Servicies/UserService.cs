@@ -20,28 +20,7 @@ namespace UrlShortener_2_.Servicies
 
         public User? ValidateUser(AuthenticationRequestDto authRequestBody)
         {
-            var user = _dbContext.Users.FirstOrDefault(p => p.UserName == authRequestBody.userName);
-
-            if (user == null)
-            {
-                return null; // User not found
-            }
-
-            // Verify the password
-            using (var hmac = new HMACSHA512())
-            {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(authRequestBody.password));
-
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != user.PasswordHash[i])
-                    {
-                        return null; // Password doesn't match
-                    }
-                }
-            }
-
-            return user; // Password matches
+            return _dbContext.Users.FirstOrDefault(p => p.UserName == authRequestBody.userName && p.PasswordHash == authRequestBody.password);
         }
 
 
@@ -63,13 +42,7 @@ namespace UrlShortener_2_.Servicies
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<string> HashPassword(string password)
-        {
-            using (var hmac = new HMACSHA512())
-            {
-                return await Task.FromResult(Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(password))));
-            }
-        }
+        
     }
 }
 

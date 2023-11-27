@@ -18,7 +18,7 @@ namespace UrlShortener_2_.Entities
         [Required]
         [MaxLength(255)]
 
-        public string PasswordHash { get; set; } // Store hashed and salted password
+        public string PasswordHash { get; set; } // Al final no la almaceno hasheada
        
     }
 }
