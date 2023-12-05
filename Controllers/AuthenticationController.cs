@@ -11,7 +11,7 @@ namespace UrlShortener_2_.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   
     public class AuthenticationController : ControllerBase
     {
         private readonly IConfiguration _config;
@@ -25,14 +25,13 @@ namespace UrlShortener_2_.Controllers
         }
 
         [HttpPost("authenticate")] //Vamos a usar un POST ya que debemos enviar los datos para hacer el login
-        public IActionResult Autenticar(AuthenticationRequestDto authenticationRequestBody) //Enviamos como parámetro la clase que creamos arriba
+        public IActionResult Authenticate(AuthenticationRequestDto authenticationRequestBody) //Enviamos como parámetro la clase que creamos arriba
         {
             //Paso 1: Validamos las credenciales
             var user = _userService.ValidateUser(authenticationRequestBody); //Lo primero que hacemos es llamar a una función que valide los parámetros que enviamos.
 
             if (user is null) //Si el la función de arriba no devuelve nada es porque los datos son incorrectos, por lo que devolvemos un Unauthorized (un status code 401).
                 return Unauthorized();
-
             //Paso 2: Crear el token
             var securityPassword = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["Authentication:SecretForKey"])); //Traemos la SecretKey del Json. agregar antes: using Microsoft.IdentityModel.Tokens;
 

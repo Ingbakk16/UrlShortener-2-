@@ -36,7 +36,8 @@ namespace UrlShortener_2_.Controllers
                 UserName = registrationDto.Username,
                 Email = registrationDto.Email,
                 // Store the password as-is (not recommended for security reasons)
-                PasswordHash = registrationDto.Password
+                PasswordHash = registrationDto.Password,
+                
                 // You can add more user properties here
             };
 
@@ -45,6 +46,26 @@ namespace UrlShortener_2_.Controllers
 
             // Return a success response
             return Ok("Registration successful.");
+        }
+
+        [HttpGet("{userId}/remaining-shortens")]
+        public async Task<IActionResult> GetRemainingShortens(Guid userId)
+        {
+            var user = await _userService.GetUserById(userId);
+
+            if (user == null)
+            {
+                return NotFound(); // User not found
+            }
+
+            return Ok(user.RemainingShortUrls);
+        }
+
+        [HttpPut("{userId}/reset-url-shorts")]
+        public async Task<IActionResult> ResetUrlShorts(Guid userId)
+        {
+            await _userService.ResetUrlShorts(userId);
+            return Ok("URL shorts reset successfully.");
         }
     }
     }

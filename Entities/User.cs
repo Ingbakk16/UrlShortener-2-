@@ -19,6 +19,8 @@ namespace UrlShortener_2_.Entities
         [MaxLength(255)]
 
         public string PasswordHash { get; set; } // Al final no la almaceno hasheada
-       
+
+        public int RemainingShortUrls { get; set; } = 10;
+
     }
 }

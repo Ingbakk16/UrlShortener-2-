@@ -16,5 +16,7 @@ namespace UrlShortener_2_.Models.Dtos
         [Required]
         [MinLength(8)]
         public string Password { get; set; }
+
+       
     }
 }

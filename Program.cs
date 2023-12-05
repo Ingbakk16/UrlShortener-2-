@@ -18,6 +18,10 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.WriteIndented = true;
 });
 
+builder.Services.AddHttpContextAccessor();
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setupAction =>
@@ -67,18 +71,20 @@ builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntentica
 
 
 
-
-
-
-
-
-
-
 #region dependencyInjections
 builder.Services.AddScoped<ShortenerService>();
 builder.Services.AddScoped<CreateShortUrl>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+
 #endregion
+
+
+
+
+
+
+
 
 
 

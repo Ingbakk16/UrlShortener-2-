@@ -20,6 +20,10 @@ namespace UrlShortener_2_.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            
+
+
             modelBuilder.Entity<NewUrl>()
            .HasOne(u => u.User)
            .WithMany()
