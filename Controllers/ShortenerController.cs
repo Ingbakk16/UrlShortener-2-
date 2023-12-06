@@ -17,15 +17,17 @@ namespace UrlShortener_2_.Controllers
         private readonly ShortenerService _ShortenerService;
         private readonly ShortenerDbContext _context;
         private readonly IUserService _userService;
+        private readonly ICategoryService _categoryService;
 
 
 
 
-        public ShortenerController(ShortenerService xyzService, ShortenerDbContext context, IUserService userService)
+        public ShortenerController(ShortenerService xyzService, ShortenerDbContext context, IUserService userService, ICategoryService categoryService)
         {
             _ShortenerService = xyzService;
             _context = context;
             _userService = userService;
+            _categoryService = categoryService;
 
 
         }
@@ -42,13 +44,15 @@ namespace UrlShortener_2_.Controllers
                 // Manejo de la situación donde urlDto o urlDto.UserId es null.
                 return BadRequest("UserId cannot be null.");
             }
-            Guid userIdGuid = Guid.Parse(userId);
 
             // Convierte el userId de cadena a Guid
-           
+            Guid userIdGuid = Guid.Parse(userId);
+
+            var category = _categoryService.GetOrCreateCategory(urlDto.CategoryName);
+
 
             // Llama al método ShortenUrl del servicio de acortamiento de URL
-            string shortUrl = await _ShortenerService.ShortenUrl(urlDto.OriginalUrl, userIdGuid);
+            string shortUrl = await _ShortenerService.ShortenUrl(urlDto.OriginalUrl, userIdGuid, category.CategoryId);
 
             if (string.IsNullOrEmpty(shortUrl))
             {
@@ -73,7 +77,20 @@ namespace UrlShortener_2_.Controllers
             return Redirect(originalUrl);
         }
 
-       
+        [HttpGet("urlsByCategory/{categoryId}")]
+        public async Task<IActionResult> GetUrlsByCategory(string categoryName)
+        {
+            var urls = await _categoryService.GetUrlsByCategory(categoryName);
+
+            if (urls == null || !urls.Any())
+            {
+                return NotFound("No URLs found for the specified category.");
+            }
+
+            return Ok(urls);
+        }
+
+
 
 
 

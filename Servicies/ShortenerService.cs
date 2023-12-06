@@ -25,7 +25,7 @@ namespace UrlShortener_2_.Servicies
 
         }
 
-        public async Task<string> ShortenUrl(string originalUrl, Guid userId)
+        public async Task<string> ShortenUrl(string originalUrl, Guid userId, int categoryId)
         {
             var user = await _userService.GetUserById(userId);
             if (user.RemainingShortUrls > 0)
@@ -46,7 +46,8 @@ namespace UrlShortener_2_.Servicies
                 var newUrlMapping = new NewUrl
                 {
                     OriginalUrl = originalUrl,
-                    ShortUrl = shortCode
+                    ShortUrl = shortCode,
+                    CategoryId = categoryId
                 };
 
                 _context.NewUrls.Add(newUrlMapping);

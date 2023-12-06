@@ -75,6 +75,7 @@ builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntentica
 builder.Services.AddScoped<ShortenerService>();
 builder.Services.AddScoped<CreateShortUrl>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 
 #endregion
