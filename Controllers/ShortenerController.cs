@@ -45,14 +45,19 @@ namespace UrlShortener_2_.Controllers
                 return BadRequest("UserId cannot be null.");
             }
 
-            // Convierte el userId de cadena a Guid
-            Guid userIdGuid = Guid.Parse(userId);
+            // Convierte el userId a Int
+         
+            int userIdInt = int.Parse(userId);
 
             var category = _categoryService.GetOrCreateCategory(urlDto.CategoryName);
+            if (category == null)
+            {
+                return BadRequest("Category could not be retrieved or created.");
+            }
 
 
             // Llama al método ShortenUrl del servicio de acortamiento de URL
-            string shortUrl = await _ShortenerService.ShortenUrl(urlDto.OriginalUrl, userIdGuid, category.CategoryId);
+            string shortUrl = await _ShortenerService.ShortenUrl(urlDto.OriginalUrl, userIdInt, category.CategoryId);
 
             if (string.IsNullOrEmpty(shortUrl))
             {
@@ -77,7 +82,7 @@ namespace UrlShortener_2_.Controllers
             return Redirect(originalUrl);
         }
 
-        [HttpGet("urlsByCategory/{categoryId}")]
+        [HttpGet("urlsByCategory/")]
         public async Task<IActionResult> GetUrlsByCategory(string categoryName)
         {
             var urls = await _categoryService.GetUrlsByCategory(categoryName);

@@ -12,9 +12,9 @@ namespace UrlShortener_2_.Data.Interfaces
 
         User? ValidateUser(AuthenticationRequestDto authRequestBody);
 
-        Task<User> GetUserById(Guid userId);
+        Task<User> GetUserById(int userId);
 
-        Task ResetUrlShorts(Guid userId);
+        Task ResetUrlShorts(int userId);
 
         string ObtainUserIdFromToken();
     }

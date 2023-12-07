@@ -11,8 +11,8 @@ using UrlShortener_2_.Data;
 namespace UrlShortener_2_.Migrations
 {
     [DbContext(typeof(ShortenerDbContext))]
-    [Migration("20231123000115_NewUrlUpdate")]
-    partial class NewUrlUpdate
+    [Migration("20231206192243_SecondCommit")]
+    partial class SecondCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,9 @@ namespace UrlShortener_2_.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("CategoryId1")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("OriginalUrl")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -54,8 +57,8 @@ namespace UrlShortener_2_.Migrations
                         .HasMaxLength(6)
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("VisitCounter")
                         .HasColumnType("INTEGER");
@@ -64,6 +67,8 @@ namespace UrlShortener_2_.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("CategoryId1");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("NewUrls");
@@ -71,9 +76,9 @@ namespace UrlShortener_2_.Migrations
 
             modelBuilder.Entity("UrlShortener_2_.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -84,6 +89,9 @@ namespace UrlShortener_2_.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("RemainingShortUrls")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -103,6 +111,10 @@ namespace UrlShortener_2_.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("UrlShortener_2_.Entities.Category", null)
+                        .WithMany("Urls")
+                        .HasForeignKey("CategoryId1");
+
                     b.HasOne("UrlShortener_2_.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -112,6 +124,11 @@ namespace UrlShortener_2_.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UrlShortener_2_.Entities.Category", b =>
+                {
+                    b.Navigation("Urls");
                 });
 #pragma warning restore 612, 618
         }

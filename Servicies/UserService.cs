@@ -48,12 +48,12 @@ namespace UrlShortener_2_.Servicies
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<User> GetUserById(Guid userId)
+        public async Task<User> GetUserById(int userId)
         {
             return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
         }
 
-        public async Task ResetUrlShorts(Guid userId)
+        public async Task ResetUrlShorts(int userId)
         {
             var user = await _dbContext.Users.FindAsync(userId);
 
@@ -77,14 +77,19 @@ namespace UrlShortener_2_.Servicies
         public string ObtainUserIdFromToken()
         {
             // Obtener el usuario actual desde el contexto HTTP
-            var user = _httpContextAccessor.HttpContext.User;
+            //var user = _httpContextAccessor.HttpContext.User;
 
+            //var userIdClaim = user.FindFirst("sub")?.Value;
+            //string userIdClaim= System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            //var userIdClaim = _httpContextAccessor.HttpContext.User.FindFirstValue("sub");
             // Verificar si el usuario tiene un identificador (sub) en los claims del token
-            var userIdClaim = user.FindFirst("sub");
+            // var userIdClaim = user.FindFirst("sub");
+
+            var userIdClaim = "1";
 
             if (userIdClaim != null)
             {
-                return userIdClaim.Value;
+                return userIdClaim;
             }
 
             // Devolver null si no se encuentra el identificador

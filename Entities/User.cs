@@ -5,7 +5,7 @@ namespace UrlShortener_2_.Entities
     public class User
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(16)]

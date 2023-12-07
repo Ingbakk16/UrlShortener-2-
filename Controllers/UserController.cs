@@ -49,7 +49,7 @@ namespace UrlShortener_2_.Controllers
         }
 
         [HttpGet("{userId}/remaining-shortens")]
-        public async Task<IActionResult> GetRemainingShortens(Guid userId)
+        public async Task<IActionResult> GetRemainingShortens(int userId)
         {
             var user = await _userService.GetUserById(userId);
 
@@ -62,7 +62,7 @@ namespace UrlShortener_2_.Controllers
         }
 
         [HttpPut("{userId}/reset-url-shorts")]
-        public async Task<IActionResult> ResetUrlShorts(Guid userId)
+        public async Task<IActionResult> ResetUrlShorts(int userId)
         {
             await _userService.ResetUrlShorts(userId);
             return Ok("URL shorts reset successfully.");

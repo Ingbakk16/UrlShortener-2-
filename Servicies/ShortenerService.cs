@@ -25,7 +25,7 @@ namespace UrlShortener_2_.Servicies
 
         }
 
-        public async Task<string> ShortenUrl(string originalUrl, Guid userId, int categoryId)
+        public async Task<string> ShortenUrl(string originalUrl, int userId, int categoryId)
         {
             var user = await _userService.GetUserById(userId);
             if (user.RemainingShortUrls > 0)

@@ -21,10 +21,10 @@ namespace UrlShortener_2_.Entities
 
         [ForeignKey("Category")] // Match the name of the property in the referenced table (Category)
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
 
         [ForeignKey("User")]
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
         public User? User { get; set; }
 
     }

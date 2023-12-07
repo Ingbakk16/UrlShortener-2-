@@ -54,8 +54,8 @@ namespace UrlShortener_2_.Migrations
                         .HasMaxLength(6)
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("VisitCounter")
                         .HasColumnType("INTEGER");
@@ -73,9 +73,9 @@ namespace UrlShortener_2_.Migrations
 
             modelBuilder.Entity("UrlShortener_2_.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
                         .IsRequired()
