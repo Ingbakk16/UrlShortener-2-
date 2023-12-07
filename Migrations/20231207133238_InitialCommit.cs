@@ -5,7 +5,7 @@
 namespace UrlShortener_2_.Migrations
 {
     /// <inheritdoc />
-    public partial class SecondCommit : Migration
+    public partial class InitialCommit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,7 +27,7 @@ namespace UrlShortener_2_.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 16, nullable: false),
                     Email = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
@@ -36,7 +36,7 @@ namespace UrlShortener_2_.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,7 +70,7 @@ namespace UrlShortener_2_.Migrations
                         name: "FK_NewUrls_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 

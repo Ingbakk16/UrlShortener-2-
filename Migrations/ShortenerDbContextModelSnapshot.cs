@@ -73,7 +73,7 @@ namespace UrlShortener_2_.Migrations
 
             modelBuilder.Entity("UrlShortener_2_.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -95,7 +95,7 @@ namespace UrlShortener_2_.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });

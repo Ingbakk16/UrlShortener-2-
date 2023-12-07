@@ -11,8 +11,8 @@ using UrlShortener_2_.Data;
 namespace UrlShortener_2_.Migrations
 {
     [DbContext(typeof(ShortenerDbContext))]
-    [Migration("20231206192243_SecondCommit")]
-    partial class SecondCommit
+    [Migration("20231207133238_InitialCommit")]
+    partial class InitialCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,7 +76,7 @@ namespace UrlShortener_2_.Migrations
 
             modelBuilder.Entity("UrlShortener_2_.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -98,7 +98,7 @@ namespace UrlShortener_2_.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });

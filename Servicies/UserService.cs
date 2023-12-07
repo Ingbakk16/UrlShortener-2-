@@ -50,7 +50,7 @@ namespace UrlShortener_2_.Servicies
 
         public async Task<User> GetUserById(int userId)
         {
-            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.UserId == userId);
         }
 
         public async Task ResetUrlShorts(int userId)
