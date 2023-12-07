@@ -49,8 +49,7 @@ namespace UrlShortener_2_.Migrations
                     ShortUrl = table.Column<string>(type: "TEXT", maxLength: 6, nullable: false),
                     VisitCounter = table.Column<int>(type: "INTEGER", nullable: false),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryId1 = table.Column<int>(type: "INTEGER", nullable: true)
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,11 +60,6 @@ namespace UrlShortener_2_.Migrations
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_NewUrls_Categories_CategoryId1",
-                        column: x => x.CategoryId1,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryId");
                     table.ForeignKey(
                         name: "FK_NewUrls_Users_UserId",
                         column: x => x.UserId,
@@ -78,11 +72,6 @@ namespace UrlShortener_2_.Migrations
                 name: "IX_NewUrls_CategoryId",
                 table: "NewUrls",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NewUrls_CategoryId1",
-                table: "NewUrls",
-                column: "CategoryId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NewUrls_UserId",

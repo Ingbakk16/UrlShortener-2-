@@ -4,7 +4,7 @@ namespace UrlShortener_2_.Data.Interfaces
 {
     public interface ICategoryService
     {
-        Category GetOrCreateCategory(string categoryName);
+        int GetOrCreateCategory(string categoryName);
 
         Task<List<NewUrl>> GetUrlsByCategory(string categoryName);
     }

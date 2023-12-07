@@ -15,9 +15,8 @@ namespace UrlShortener_2_.Servicies
             _context = context;
         }
 
-        public Category GetOrCreateCategory(string categoryName)
+        public int GetOrCreateCategory(string categoryName)
         {
-            // Buscar la categoría por nombre
             var category = _context.Categories.FirstOrDefault(c => c.Name == categoryName);
 
             if (category == null)
@@ -32,7 +31,7 @@ namespace UrlShortener_2_.Servicies
                 _context.SaveChanges();
             }
 
-            return category;
+            return category.CategoryId;
         }
 
         public async Task<List<NewUrl>> GetUrlsByCategory(string categoryName)

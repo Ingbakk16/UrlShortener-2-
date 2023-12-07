@@ -47,7 +47,8 @@ namespace UrlShortener_2_.Servicies
                 {
                     OriginalUrl = originalUrl,
                     ShortUrl = shortCode,
-                    CategoryId = categoryId
+                    CategoryId = categoryId,
+                    UserId = userId
                 };
 
                 _context.NewUrls.Add(newUrlMapping);

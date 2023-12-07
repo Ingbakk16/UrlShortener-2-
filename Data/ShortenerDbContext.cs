@@ -30,15 +30,14 @@ namespace UrlShortener_2_.Data
 
             modelBuilder.Entity<NewUrl>()
              .HasOne(u => u.Category)
-             .WithMany()
-             .HasForeignKey(u => u.CategoryId);
-
-            modelBuilder.Entity<Category>()
-          .HasKey(c => c.CategoryId);
+             .WithMany(c => c.Urls)
+             .HasForeignKey(u => u.CategoryId).IsRequired();
 
 
 
-            base.OnModelCreating(modelBuilder);
+
+
+
 
             base.OnModelCreating(modelBuilder);
         }

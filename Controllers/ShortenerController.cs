@@ -49,7 +49,7 @@ namespace UrlShortener_2_.Controllers
          
             int userIdInt = int.Parse(userId);
 
-            var category = _categoryService.GetOrCreateCategory(urlDto.CategoryName);
+            int category = _categoryService.GetOrCreateCategory(urlDto.CategoryName);
             if (category == null)
             {
                 return BadRequest("Category could not be retrieved or created.");
@@ -57,7 +57,7 @@ namespace UrlShortener_2_.Controllers
 
 
             // Llama al método ShortenUrl del servicio de acortamiento de URL
-            string shortUrl = await _ShortenerService.ShortenUrl(urlDto.OriginalUrl, userIdInt, category.CategoryId);
+            string shortUrl = await _ShortenerService.ShortenUrl(urlDto.OriginalUrl, userIdInt, category);
 
             if (string.IsNullOrEmpty(shortUrl))
             {
